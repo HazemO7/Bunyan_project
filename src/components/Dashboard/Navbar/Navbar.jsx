@@ -15,11 +15,10 @@ return(
       </div>
 
       <div className= "d-flex justify-content-center align-itmes-center gap-3">
-	    <span>{adminName}</span>
+	    <span className= "d-flex align-items-center">{adminName}</span>
 	    <div className={styles.avatar}>
             {adminName.charAt(0).toUpperCase()}
-
-        </div>
+       </div>
      </div>
 
      </div>
