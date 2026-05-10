@@ -1,6 +1,7 @@
 import logo from '../../../assets/axis logo.png'
 import styles from './Navbar.module.css'
 
+
 function Navbar({ adminName }) {
 return(
     <nav className={`${styles.nav} d-flex justify-content-between align-items-center shadow-sm border-bottom-2`}>
@@ -26,5 +27,8 @@ return(
        
     )
 }
+
+
+
 
 export default Navbar;
