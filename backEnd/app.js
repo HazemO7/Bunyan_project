@@ -1,28 +1,48 @@
-require('dotenv').config();
-const express = require('express');
-const app = express(); 
-const mongoose = require('mongoose');
-const ConnectionDB = require('./config/db');
+// Dotenv
+require("dotenv").config();
+// express
+const express = require("express");
+const app = express();
+
+const http = require("http");
+const realServer = http.createServer(app);
+
+const morgan = require("morgan");
+// middleware json
 app.use(express.json());
-
-//simple logger
-if (process.env.NODE_ENV === 'dev') {
-    app.use((req, res, next) => {
-        console.log(`${req.method} ${req.originalUrl}`);
-        next();
-    })
+// connection DB
+// Simple Logger
+if (process.env.NODE_ENV === "dev") {
+  app.use(morgan("combined"));
 }
-
-
+// Test Route
 app.get("/test", (req, res) => {
-    res.send({ msg: "Hello World" });
+  res.json({ msg: "Test Route" });
 });
 
-const PORT = process.env.PORT || 5000;
+const connectedDB = require("./config/db");
+connectedDB();
 
-ConnectionDB();
+const adminRoutes = require("./routes/auth.route");
+const userRoutes = require("./routes/user.route");
+const userAuthRoutes = require("./routes/authUser.route");
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.use("/api/dashboard", adminRoutes);
+app.use("/api/dashboard/users", userRoutes);
+app.use("/api/users", userAuthRoutes);
+
+const { Server } = require("socket.io");
+const io = new Server(realServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+}); 
+
+
+// Port
+const port = process.env.PORT || 3000;
+// Run Server
+realServer.listen(port, () => {
+  console.log(`Server Is Running ${port}`);
 });
-
