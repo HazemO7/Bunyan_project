@@ -39,6 +39,7 @@ const io = new Server(realServer, {
   },
 }); 
 
+require("./sockets/chat.socket").socketChatContoller(io);
 
 // Port
 const port = process.env.PORT || 3000;
@@ -46,3 +47,7 @@ const port = process.env.PORT || 3000;
 realServer.listen(port, () => {
   console.log(`Server Is Running ${port}`);
 });
+
+
+
+

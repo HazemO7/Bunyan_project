@@ -8,3 +8,4 @@ const loginController = require("../controllers/authAdmin.controller");
 router.post("/login", loginController);
 // Export
 module.exports = router;
+
