@@ -33,7 +33,6 @@ const createUser = async (req, res) => {
     res.status(500).json({ msg: "Internal Server Error" });
   }
 };
-
 // Get All Users
 // Get UserById
 // Update User

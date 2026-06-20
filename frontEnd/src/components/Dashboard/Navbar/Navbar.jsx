@@ -1,0 +1,51 @@
+
+import { useState } from "react";
+
+import styles from "./Navbar.module.css";
+import Logo from "../../../assets/logo.png";
+
+const Navbar = ({ adminName = "Super Admin", adminImg }) => {
+  // layer 1 state variable to hold notification count
+  const [notifCount, setNotifCount] = useState(15);
+//layer 2 api call simulation to fetch notification count from server
+
+// layer 3 handler function to increase notification count
+  const onIncreaseNotifHandler = () => {
+    setNotifCount( notifCount + 1);
+  };
+
+  return (
+    <nav
+      className={`${styles.navbar} d-flex justify-content-between align-items-center shadow-sm`}
+    >
+      <div className="d-flex align-items-center">
+        <img src={Logo} alt="Bunyan" className={styles.logoImg} />
+      </div>
+
+      <div className={styles.adminSection}>
+        <div className={styles.notifIcon}>
+          <i className="fa-solid fa-bell"></i>
+          <span className={`badge rounded-pill bg-info ${styles.badge}`}>
+            {notifCount}
+          </span>
+        </div>
+        <div className="btn btn-success" onClick={onIncreaseNotifHandler}>
+          Increase Notification
+        </div>
+
+        <div className="d-flex align-items-center gap-2">
+          <span className="fw-semibold d-none d-md-block">{adminName}</span>
+          {adminImg ? (
+            <img src={adminImg} alt="admin" className={styles.avatarCircle} />
+          ) : (
+            <div className={styles.avatarCircle}>
+              {adminName.charAt(0).toUpperCase()}
+            </div>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

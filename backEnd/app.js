@@ -3,9 +3,9 @@ require("dotenv").config();
 // express
 const express = require("express");
 const app = express();
-
+// Create Node server
 const http = require("http");
-const realServer = http.createServer(app);
+const appServer = http.createServer(app);
 
 const morgan = require("morgan");
 // middleware json
@@ -13,7 +13,7 @@ app.use(express.json());
 // connection DB
 // Simple Logger
 if (process.env.NODE_ENV === "dev") {
-  app.use(morgan("combined"));
+  app.use(morgan("dev"));
 }
 // Test Route
 app.get("/test", (req, res) => {
@@ -32,22 +32,18 @@ app.use("/api/dashboard/users", userRoutes);
 app.use("/api/users", userAuthRoutes);
 
 const { Server } = require("socket.io");
-const io = new Server(realServer, {
+const io = new Server(appServer, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
   },
-}); 
+});
 
-require("./sockets/chat.socket").socketChatContoller(io);
+require("./sockets/chat.socket")(io);
 
 // Port
 const port = process.env.PORT || 3000;
 // Run Server
-realServer.listen(port, () => {
+appServer.listen(port, () => {
   console.log(`Server Is Running ${port}`);
 });
-
-
-
-
