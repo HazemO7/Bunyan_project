@@ -9,6 +9,11 @@ function TableDashboard() {
     { id: 3, firstName: "John", lastName: "Doe", handle: "@social" },
   ])
 
+//l3 handler
+  const deleteUser = (userId) => {
+    setUsers(users.filter((user) => user.id !== userId));
+  };
+
   return (
     <div className="container py-4">
       <div className="d-flex align-items-center justify-content-between mb-3">
@@ -26,6 +31,8 @@ function TableDashboard() {
               <th>First</th>
               <th>Last</th>
               <th>Handle</th>
+              <th>Delete</th>
+
             </tr>
           </thead>
 
@@ -36,6 +43,11 @@ function TableDashboard() {
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
                 <td>{user.handle}</td>
+                <td>
+                  <button className="btn btn-danger btn-sm" onClick={() => deleteUser(user.id)}>
+                    Delete User
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
