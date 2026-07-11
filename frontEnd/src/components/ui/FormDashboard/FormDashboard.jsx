@@ -32,15 +32,19 @@ const onSubmit = async (data) => {
             <div className="col-12 col-md-6">
               <label className="form-label">User Name</label>
               <input type="text" className={`form-control ${styles.input}`}
-               {...register("username", { required: "Username is required" })} />
-               {errors.username && <span className="invalid-feedback d-block">{errors.username.message}</span>}
+               {...register("username", { required: "Username is required",
+                pattern: { value: /^[a-zA-Z0-9_]{3,20}$/, message: "Invalid username" } })} />
+               {errors.username && (
+                <span className="invalid-feedback d-block">{errors.username.message}</span>)}
             </div>
 
             <div className="col-12 col-md-6">
               <label className="form-label">Email Address</label>
               <input type="email" className={`form-control ${styles.input}`}
-               {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" } })} />
-               {errors.email && <span className="invalid-feedback d-block">{errors.email.message}</span>}
+               {...register("email", { required: "Email is required",
+                pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" } })} />
+               {errors.email && (
+                <span className="invalid-feedback d-block">{errors.email.message}</span>)}
             </div>
 
             <div className="col-12 col-md-6">
@@ -50,7 +54,9 @@ const onSubmit = async (data) => {
                 className={`form-control ${styles.input}`}
                 {...register("password", { required: "Password is required" })}
               />
-              {errors.password && <span className="invalid-feedback d-block">{errors.password.message}</span>}
+              {errors.password && (
+                <span className="invalid-feedback d-block">{errors.password.message}</span>
+              )}
             </div>
 
             <div className="col-12 col-md-6">
@@ -60,7 +66,9 @@ const onSubmit = async (data) => {
                 className={`form-control ${styles.input}`}
                 {...register("confirmPassword", { required: "Please confirm your password" })}  
               />
-              {errors.confirmPassword && <span className="invalid-feedback d-block">{errors.confirmPassword.message}</span>}
+              {errors.confirmPassword && (
+                <span className="invalid-feedback d-block">{errors.confirmPassword.message}</span>
+              )}
             </div>
 
             <div className="col-12 d-flex justify-content-end mt-3">
