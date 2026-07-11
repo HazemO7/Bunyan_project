@@ -34,8 +34,29 @@ const createUser = async (req, res) => {
   }
 };
 // Get All Users
+const getAllUsers = async (req, res) =>{
+  try{
+    const users = await User.find();
+    res.status(200).json(users);
+
+  }catch(error){
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+}
 // Get UserById
+const getUserById = async (req, res) =>{
+  try{
+    const user = await User.findById(req.params.id);
+    if(!user) return res.status(404).json({ msg: "User Not Found" });
+    res.status(200).json(user);
+  }catch(error){
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+}
 // Update User
 // Delete User
 // Export
-module.exports = createUser;
+module.exports = {
+  createUser,
+  getAllUsers
+};
