@@ -15,7 +15,7 @@ function TableDashboard() {
         
         setUsers(response.data);
       } catch (error) {
-       console.log(error);
+        console.error("Error fetching users:", error);
       }
     };
 
