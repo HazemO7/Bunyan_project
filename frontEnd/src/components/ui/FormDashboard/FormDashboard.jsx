@@ -1,6 +1,17 @@
+
+import {useForm} from "react-hook-form";
+import {axios} from "../../../utils/axios";
+import {useNavigate} from "react-router-dom";
 import styles from "./FormDashboard.module.css";
 
 function FormDashboard() {
+  //L1 state and global state
+  const {register, handleSubmit, formState: {errors}} = useForm();
+  //L2 api call and form handling {useEffect, useForm, axios, react-query, react-hook-form}
+  
+  //L3 handler
+
+  //L4 return jsx
   return (
     <div className="container py-4">
       <div className={styles.formWrapper}>
@@ -47,3 +58,5 @@ function FormDashboard() {
 }
 
 export default FormDashboard;
+
+

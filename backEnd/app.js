@@ -7,6 +7,12 @@ const app = express();
 const http = require("http");
 const appServer = http.createServer(app);
 
+// Cors
+const cors = require("cors");
+app.use(cors());
+
+
+// Morgan
 const morgan = require("morgan");
 // middleware json
 app.use(express.json());
@@ -30,6 +36,7 @@ const userAuthRoutes = require("./routes/authUser.route");
 app.use("/api/dashboard", adminRoutes);
 app.use("/api/dashboard/users", userRoutes);
 app.use("/api/users", userAuthRoutes);
+
 
 const { Server } = require("socket.io");
 const io = new Server(appServer, {

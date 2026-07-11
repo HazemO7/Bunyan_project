@@ -58,5 +58,6 @@ const getUserById = async (req, res) =>{
 // Export
 module.exports = {
   createUser,
-  getAllUsers
+  getAllUsers,
+  getUserById
 };

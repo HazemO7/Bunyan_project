@@ -1,17 +1,29 @@
 import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./TableDashboard.module.css";
 
 function TableDashboard() {
-  const [users, setUsers] = useState([
-    { id: 1, firstName: "Mark", lastName: "Otto", handle: "@mdo" },
-    { id: 2, firstName: "Jacob", lastName: "Thornton", handle: "@fat" },
-    { id: 3, firstName: "John", lastName: "Doe", handle: "@social" },
-  ])
+//l
+  const [users, setUsers] = useState([])
+// l2 fetch data
+  useEffect(() => {
+    const fetchUsers = async() => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/users");
+        setUsers(response.data.users);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
 //l3 handler
   const deleteUser = (userId) => {
-    setUsers(users.filter((user) => user.id !== userId));
+    setUsers(users.filter((user) => user._id !== userId));
   };
 
   return (
@@ -27,24 +39,24 @@ function TableDashboard() {
         <table className={`table mb-0 ${styles.table}`}>
           <thead>
             <tr>
-              <th>#</th>
-              <th>First</th>
-              <th>Last</th>
-              <th>Handle</th>
-              <th>Delete</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Status</th>
+              <th>Actions</th>
 
             </tr>
           </thead>
 
           <tbody>
             {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.handle}</td>
+              <tr key={user._id}>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.phoneNumber}</td>
+                <td>{user.isActive ? "Active" : "Inactive"}</td>
                 <td>
-                  <button className="btn btn-danger btn-sm" onClick={() => deleteUser(user.id)}>
+                  <button className="btn btn-danger btn-sm" onClick={() => deleteUser(user._id)}>
                     Delete User
                   </button>
                 </td>
