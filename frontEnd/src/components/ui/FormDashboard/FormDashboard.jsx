@@ -1,6 +1,6 @@
 
 import {useForm} from "react-hook-form";
-import {axios} from "../../../utils/axios";
+import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import styles from "./FormDashboard.module.css";
 
@@ -10,23 +10,33 @@ function FormDashboard() {
   //L2 api call and form handling {useEffect, useForm, axios, react-query, react-hook-form}
   
   //L3 handler
-
+const onSubmit = async (data) => {
+  try {
+    const response = await axios.post("http://localhost:3000/api/dashboard/users", data);
+    console.log("User created:", response.data);
+  } catch (error) {
+    console.error("Error creating user:", error);
+  }
+}
   //L4 return jsx
   return (
     <div className="container py-4">
       <div className={styles.formWrapper}>
         <h5 className="fw-semibold mb-4">Add New User</h5>
 
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row g-3">
+
             <div className="col-12 col-md-6">
               <label className="form-label">User Name</label>
-              <input type="text" className={`form-control ${styles.input}`} />
+              <input type="text" className={`form-control ${styles.input}`}
+               {...register("username", { required: "Username is required" })} />
             </div>
 
             <div className="col-12 col-md-6">
               <label className="form-label">Email Address</label>
-              <input type="email" className={`form-control ${styles.input}`} />
+              <input type="email" className={`form-control ${styles.input}`}
+               {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" } })} />
             </div>
 
             <div className="col-12 col-md-6">
@@ -34,6 +44,7 @@ function FormDashboard() {
               <input
                 type="password"
                 className={`form-control ${styles.input}`}
+                {...register("password", { required: "Password is required" })}
               />
             </div>
 
@@ -42,6 +53,7 @@ function FormDashboard() {
               <input
                 type="password"
                 className={`form-control ${styles.input}`}
+                {...register("confirmPassword", { required: "Please confirm your password" })}  
               />
             </div>
 
