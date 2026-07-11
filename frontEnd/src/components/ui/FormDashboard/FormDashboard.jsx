@@ -6,7 +6,7 @@ import styles from "./FormDashboard.module.css";
 
 function FormDashboard() {
   //L1 state and global state
-  const {register, handleSubmit, formState: {errors}} = useForm();
+  const {register, handleSubmit, formState: {errors}, watch } = useForm({mode: "all"});
   //L2 api call and form handling {useEffect, useForm, axios, react-query, react-hook-form}
   
   //L3 handler
