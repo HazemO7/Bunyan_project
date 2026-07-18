@@ -6,6 +6,7 @@ import styles from "./FormDashboard.module.css";
 
 function FormDashboard() {
   //L1 state and global state
+  const navigate = useNavigate();
   const {register, handleSubmit, formState: {errors}, watch } = useForm({mode: "all"});
   //L2 api call and form handling {useEffect, useForm, axios, react-query, react-hook-form}
   const password = watch("password");
@@ -14,11 +15,15 @@ function FormDashboard() {
 const onSubmit = async (data) => {
   try {
     const response = await axios.post("http://localhost:3000/api/dashboard/users", data);
+    alert("User created successfully!");
+    navigate("/dashboard/users");
     console.log("User created:", response.data);
   } catch (error) {
-    console.error("Error creating user:", error);
+    const errorServer = error.response.data.message
+    alert(errorServer || "Error creating user");
   }
 }
+
 
 
   //L4 return jsx

@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-
+import {useSelector} from "react-redux";
 import styles from "./Navbar.module.css";
 import Logo from "../../../assets/logo.png";
 
@@ -13,6 +13,9 @@ const Navbar = ({ adminName = "Super Admin", adminImg }) => {
   const onIncreaseNotifHandler = () => {
     setNotifCount( notifCount + 1);
   };
+  
+  const state = useSelector((state) => state.auth);
+  console.log("Redux state:", state);
 
   return (
     <nav
