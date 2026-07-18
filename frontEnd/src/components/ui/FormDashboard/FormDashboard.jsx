@@ -8,7 +8,8 @@ function FormDashboard() {
   //L1 state and global state
   const {register, handleSubmit, formState: {errors}, watch } = useForm({mode: "all"});
   //L2 api call and form handling {useEffect, useForm, axios, react-query, react-hook-form}
-  
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
   //L3 handler
 const onSubmit = async (data) => {
   try {
@@ -29,6 +30,7 @@ const onSubmit = async (data) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row g-3">
 
+
             <div className="col-12 col-md-6">
               <label className="form-label">User Name</label>
               <input type="text" className={`form-control ${styles.input}`}
@@ -38,6 +40,7 @@ const onSubmit = async (data) => {
                 <span className="invalid-feedback d-block">{errors.username.message}</span>)}
             </div>
 
+
             <div className="col-12 col-md-6">
               <label className="form-label">Email Address</label>
               <input type="email" className={`form-control ${styles.input}`}
@@ -46,6 +49,21 @@ const onSubmit = async (data) => {
                {errors.email && (
                 <span className="invalid-feedback d-block">{errors.email.message}</span>)}
             </div>
+
+
+            <div className="col-12 col-md-12">
+              <label className="form-label">
+                Phone Number
+              </label>
+              <input 
+                placeholder="01x-xxxxxxx" type="text" className={`form-control ${styles.input}`}
+               {...register("phoneNumber", { required: "Phone number is required",
+                pattern: { value: /^\d{11}$/, message: "Invalid phone number" } })}
+              />
+               {errors.phoneNumber && (
+                <span className="invalid-feedback d-block">{errors.phoneNumber.message}</span>)}
+            </div>
+
 
             <div className="col-12 col-md-6">
               <label className="form-label">Password</label>
@@ -59,17 +77,21 @@ const onSubmit = async (data) => {
               )}
             </div>
 
+
             <div className="col-12 col-md-6">
               <label className="form-label">Confirm Password</label>
               <input
                 type="password"
                 className={`form-control ${styles.input}`}
-                {...register("confirmPassword", { required: "Please confirm your password" })}  
+                {...register("confirmPassword", { required: "Please confirm your password",
+                  validate: (value) => value === password || "Passwords do not match"
+                 })}  
               />
               {errors.confirmPassword && (
                 <span className="invalid-feedback d-block">{errors.confirmPassword.message}</span>
               )}
             </div>
+
 
             <div className="col-12 d-flex justify-content-end mt-3">
               <button type="submit" className="btn btn-primary btn-sm">
