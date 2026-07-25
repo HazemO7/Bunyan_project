@@ -3,6 +3,9 @@ import { useState } from "react";
 import {useSelector} from "react-redux";
 import styles from "./Navbar.module.css";
 import Logo from "../../../assets/logo.png";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../store/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ adminName = "Super Admin", adminImg }) => {
   // layer 1 state variable to hold notification count
@@ -13,7 +16,15 @@ const Navbar = ({ adminName = "Super Admin", adminImg }) => {
   const onIncreaseNotifHandler = () => {
     setNotifCount( notifCount + 1);
   };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   
+  const logoutHandler = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    navigate("/dashboard/login");
+  }
   const state = useSelector((state) => state.auth);
   console.log("Redux state:", state);
 
@@ -45,6 +56,9 @@ const Navbar = ({ adminName = "Super Admin", adminImg }) => {
               {adminName.charAt(0).toUpperCase()}
             </div>
           )}
+        </div>
+        <div className="btn btn-danger ms-3" onClick={logoutHandler}>
+            Logout
         </div>
       </div>
     </nav>

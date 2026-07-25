@@ -33,6 +33,7 @@ const createUser = async (req, res) => {
     res.status(500).json({ msg: "Internal Server Error" });
   }
 };
+
 // Get All Users
 const getAllUsers = async (req, res) =>{
   try{
@@ -53,6 +54,7 @@ const getUserById = async (req, res) =>{
     res.status(500).json({ msg: "Internal Server Error" });
   }
 }
+
 // Update User
 // Delete User
 // Export

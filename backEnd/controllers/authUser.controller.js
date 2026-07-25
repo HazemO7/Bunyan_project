@@ -23,6 +23,7 @@ const loginController = async (req, res) => {
     //   Check Admin Found Or No
     const user = await User.findOne({ email }).select("+password");
     //   If User Not Found
+    
     if (!user)
       return res.status(400).json({ msg: "Invalid Email Or Password" });
     //   Compare Password
