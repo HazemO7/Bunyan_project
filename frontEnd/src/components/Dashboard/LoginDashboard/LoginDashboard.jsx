@@ -18,8 +18,8 @@ function LoginDashboard() {
 
   const onSubmitHandler = async (data) => {
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/users/login",
+      const res = await axiosInstance.post(
+        "/users/login",
         data
       );
 
